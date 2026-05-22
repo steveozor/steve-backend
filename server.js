@@ -138,7 +138,7 @@ app.post('/verify-payment', async (req, res) => {
             // --- 4. SEND THE SIMPLE NOTIFICATION TO ADMIN ---
             await resend.emails.send({
                 from: 'System Notification <tickets@steveoz.ng>',
-                to: 'samueladebisi30@gmail.com', // Admin Email
+                to: 'Emekaozor1@gmail.com', // Admin Email
                 subject: 'New Ticket Sold: ' + ticket,
                 html: `<p>New sale from ${name}. Details: ${qty} x ${ticket}, Ref: ${reference}</p>`
             });
