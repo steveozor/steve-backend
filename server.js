@@ -12,7 +12,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Map your ticket prices (in Kobo, so multiply by 100)
 const ticketPrices = {
-    "early_bird": 10000 * 100,
+    "early_bird": 100 * 100,
     "regular": 15000 * 100,
     "vip": 50000 * 100,
     "front_row": 100000 * 100
