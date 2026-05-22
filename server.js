@@ -44,7 +44,7 @@ app.post('/verify-payment', async (req, res) => {
                                 <tr>
                                     <td align="center" style="background: linear-gradient(135deg, #1d2537 0%, #303e56 100%); padding: 30px;">
                                         <p style="margin: 0; font-size: 11px; color: #a1b0c9; letter-spacing: 2px; text-transform: uppercase;">AMICO RECORDS PRESENTS</p>
-                                        <h1 style="margin: 5px 0 15px 0; font-size: 64px; color: #ffffff; letter-spacing: -2px; font-weight: 800; text-transform: uppercase;">STEVE</h1>
+                                        <h1 style="margin: 5px 0 15px 0; font-size: 64px; color: #ffffff; letter-spacing: -2px; font-weight: 800; text-transform: uppercase;">STEVEOZ</h1>
                                         
                                         <table border="0" cellspacing="0" cellpadding="0" align="center">
                                             <tr>
@@ -138,7 +138,7 @@ app.post('/verify-payment', async (req, res) => {
             // --- 4. SEND THE SIMPLE NOTIFICATION TO ADMIN ---
             await resend.emails.send({
                 from: 'System Notification <tickets@steveoz.ng>',
-                to: 'Emekaozor1@gmail.com', // Admin Email
+                to: 'samueladebisi30@gmail.com', // Admin Email
                 subject: 'New Ticket Sold: ' + ticket,
                 html: `<p>New sale from ${name}. Details: ${qty} x ${ticket}, Ref: ${reference}</p>`
             });
