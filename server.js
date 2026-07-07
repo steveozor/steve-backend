@@ -14,7 +14,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Add this route to your Express backend
 // --- UPDATE YOUR /verify-payment ROUTE IN index.js ON RENDER ---
 
-
+app.get('/ping', (req, res) => {
+    res.send('Pong! The server is awake.');
+});
 
 function generateTicketHtml(name, qty, ticket, reference, total) {
     const eventDate = 'Sunday, 12th July 2026';
