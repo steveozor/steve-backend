@@ -258,7 +258,7 @@ app.post('/verify-payment', async (req, res) => {
 });
 
 app.post('/admin-bulk-send', async (req, res) => {
-    if (req.headers['authorization'] !== 'ADMIN_SECRET') {
+    if (req.headers['authorization'] !== process.env.ADMIN_SECRET) {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
