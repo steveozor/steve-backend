@@ -119,6 +119,48 @@ function generateTicketHtml(name, qty, ticket, reference, total) {
 }
 
 
+app.post('/admin-bulk-send', async (req, res) => {
+    if (req.headers['authorization'] !== process.env.ADMIN_SECRET) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { customers } = req.body;
+    const results = { sent: [], failed: [] };
+
+    for (const customer of customers) {
+        try {
+            // Use the same function that your main payment route uses
+            const htmlContent = generateTicketHtml(
+                customer.name, 
+                customer.qty, 
+                customer.ticket, 
+                customer.ref, 
+                customer.total
+            );
+
+            await resend.emails.send({
+                from: 'SteveOz - I Just Woke Up <tickets@steveoz.ng>',
+                to: customer.email,
+                subject: 'Your E-Ticket Confirmation - SteveOz: I Just Woke Up!',
+                html: htmlContent
+            });
+            results.sent.push(customer.email);
+        } catch (err) {
+            results.failed.push({ email: customer.email, error: err.message });
+        }
+    }
+    res.json({ message: "Recovery process complete", results });
+});
+
+
+
+
+
+
+
+
+
+
 
 
 app.post('/verify-payment', async (req, res) => {
@@ -257,39 +299,6 @@ app.post('/verify-payment', async (req, res) => {
         // If there was any error (Paystack down, Resend error), tell the frontend
         res.status(500).json({ error: error.message });
     }
-});
-
-app.post('/admin-bulk-send', async (req, res) => {
-    if (req.headers['authorization'] !== process.env.ADMIN_SECRET) {
-        return res.status(401).json({ error: "Unauthorized" });
-    }
-
-    const { customers } = req.body;
-    const results = { sent: [], failed: [] };
-
-    for (const customer of customers) {
-        try {
-            // Use the same function that your main payment route uses
-            const htmlContent = generateTicketHtml(
-                customer.name, 
-                customer.qty, 
-                customer.ticket, 
-                customer.ref, 
-                customer.total
-            );
-
-            await resend.emails.send({
-                from: 'SteveOz - I Just Woke Up <tickets@steveoz.ng>',
-                to: customer.email,
-                subject: 'Your E-Ticket Confirmation - SteveOz: I Just Woke Up!',
-                html: htmlContent
-            });
-            results.sent.push(customer.email);
-        } catch (err) {
-            results.failed.push({ email: customer.email, error: err.message });
-        }
-    }
-    res.json({ message: "Recovery process complete", results });
 });
 
 
